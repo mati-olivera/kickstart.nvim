@@ -17,4 +17,13 @@ return {
   keys = {
     { '<leader>lg', '<cmd>LazyGit<cr>', desc = 'LazyGit' },
   },
+  config = function()
+    vim.api.nvim_create_autocmd('TermOpen', {
+      pattern = 'term://*lazygit*',
+      callback = function()
+        vim.keymap.set('t', '<C-h>', '<C-h>', { buffer = true })
+        -- Repeat for other nav keys if they interfere
+      end,
+    })
+  end,
 }
