@@ -801,7 +801,26 @@ require('lazy').setup({
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
     'rose-pine/neovim',
     name = 'rose-pine',
-    config = function() vim.cmd 'colorscheme rose-pine' end,
+    priority = 1000,
+    config = function()
+      require('rose-pine').setup({
+        variant = 'auto', -- auto, main, moon, or dawn
+        dark_variant = 'main', -- main, moon, or dawn
+        styles = {
+          bold = true,
+          italic = true,
+          transparency = true,
+        },
+      })
+      vim.cmd('colorscheme rose-pine')
+
+      -- Configuración adicional para asegurar transparencia completa
+      vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'NormalNC', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'SignColumn', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'LineNr', { bg = 'none' })
+    end,
   },
 
   -- Highlight todo, notes, etc in comments
@@ -933,6 +952,19 @@ require('lazy').setup({
       lazy = '💤 ',
     },
   },
+})
+
+-- Asegurar transparencia después de cargar todos los plugins
+vim.api.nvim_create_autocmd('ColorScheme', {
+  pattern = '*',
+  callback = function()
+    vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+    vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+    vim.api.nvim_set_hl(0, 'NormalNC', { bg = 'none' })
+    vim.api.nvim_set_hl(0, 'SignColumn', { bg = 'none' })
+    vim.api.nvim_set_hl(0, 'LineNr', { bg = 'none' })
+    vim.api.nvim_set_hl(0, 'EndOfBuffer', { bg = 'none' })
+  end,
 })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
