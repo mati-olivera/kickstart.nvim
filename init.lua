@@ -667,9 +667,7 @@ require('lazy').setup({
     keys = {
       {
         '<leader>ft',
-        function()
-          require('conform').format { async = true, lsp_fallback = true }
-        end,
+        function() require('conform').format { async = true, lsp_fallback = true } end,
         mode = '',
         desc = '[F]ormat buffer',
       },
@@ -770,11 +768,11 @@ require('lazy').setup({
         nerd_font_variant = 'mono',
       },
 
-          -- If you prefer more traditional completion keymaps,
-          -- you can uncomment the following lines
-          -- ['<CR>'] = cmp.mapping.confirm { select = true },
-          --['<Tab>'] = cmp.mapping.select_next_item(),
-          --['<S-Tab>'] = cmp.mapping.select_prev_item(),
+      -- If you prefer more traditional completion keymaps,
+      -- you can uncomment the following lines
+      -- ['<CR>'] = cmp.mapping.confirm { select = true },
+      --['<Tab>'] = cmp.mapping.select_next_item(),
+      --['<S-Tab>'] = cmp.mapping.select_prev_item(),
 
       sources = {
         default = { 'lsp', 'path', 'snippets' },
@@ -803,9 +801,7 @@ require('lazy').setup({
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
     'rose-pine/neovim',
     name = 'rose-pine',
-    config = function()
-      vim.cmd 'colorscheme rose-pine'
-    end,
+    config = function() vim.cmd 'colorscheme rose-pine' end,
   },
 
   -- Highlight todo, notes, etc in comments
@@ -876,14 +872,10 @@ require('lazy').setup({
           local buf, filetype = args.buf, args.match
 
           local language = vim.treesitter.language.get_lang(filetype)
-          if not language then
-            return
-          end
+          if not language then return end
 
           -- check if parser exists and load it
-          if not vim.treesitter.language.add(language) then
-            return
-          end
+          if not vim.treesitter.language.add(language) then return end
           -- enables syntax highlighting and other treesitter features
           vim.treesitter.start(buf, language)
 
